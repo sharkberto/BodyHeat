@@ -1,24 +1,21 @@
 package com.flir.flironeexampleapplication;
 
-import com.flir.flironeexampleapplication.util.SystemUiHider;
-
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Environment;
-import android.util.Log;
-import android.content.Context;
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.ScaleGestureDetector;
@@ -31,11 +28,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.flir.flironeexampleapplication.util.SystemUiHider;
 import com.flir.flironesdk.Device;
 import com.flir.flironesdk.Frame;
 import com.flir.flironesdk.FrameProcessor;
-import com.flir.flironesdk.RenderedImage;
 import com.flir.flironesdk.LoadedFrame;
+import com.flir.flironesdk.RenderedImage;
 import com.flir.flironesdk.SimulatedDevice;
 
 import java.io.ByteArrayOutputStream;
@@ -44,7 +42,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -249,7 +246,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
     // Frame Processor Delegate method, will be called each time a rendered frame is produced
     public void onFrameProcessed(final RenderedImage renderedImage){
         thermalBitmap = renderedImage.getBitmap();
-        Log.i("Byte Count ", "" + thermalBitmap.getByteCount());
+        Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
+        Log.v("Pixel at", "" + thermalBitmap.getPixel(0,0));
+        Log.v("Pixel Config", "" + thermalBitmap.getConfig());
 
         updateThermalImageView(thermalBitmap);
 
@@ -306,7 +305,6 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 final ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
 
                 thermalBitmap.compress(Bitmap.CompressFormat.WEBP, 100, bufferStream);
-                Log.i("Byte Count ", "" + thermalBitmap.getByteCount());
 
                 bufferStream.flush();
                 (new Thread() {
