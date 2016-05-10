@@ -242,14 +242,23 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
     }
 
     private Bitmap thermalBitmap = null;
+    private int pixels[];
 
     // Frame Processor Delegate method, will be called each time a rendered frame is produced
     public void onFrameProcessed(final RenderedImage renderedImage){
         thermalBitmap = renderedImage.getBitmap();
-        Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
-        Log.v("Pixel at", "" + thermalBitmap.getPixel(0,0));
-        Log.v("Pixel Config", "" + thermalBitmap.getConfig());
+        // TEST
+        //Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
+        //pixels = thermalBitmap.getPixels(pixels, 0, 32, 0, 0, 32, 32);
 
+        //Log.v("Pixel Config", "" + thermalBitmap.getConfig());
+        // Example: ARGB_8888
+
+
+        //int[] pixels = {};
+        //thermalBitmap.getPixels(pixels,50,100,0,0,100,100);
+
+        // TEST
         updateThermalImageView(thermalBitmap);
 
         /*
@@ -264,6 +273,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssZ", Locale.getDefault());
                     String formatedDate = sdf.format(new Date());
                     String fileName = "FLIROne-" + formatedDate + ".jpg";
+                    // TEST
+                    Log.v("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
+                    // TEST
                     try{
                         lastSavedPath = path+ "/" + fileName;
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
