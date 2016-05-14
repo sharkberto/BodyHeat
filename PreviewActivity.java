@@ -238,6 +238,8 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         if (currentTuningState != Device.TuningState.InProgress){
             frameProcessor.processFrame(frame);
+
+
         }
     }
 
@@ -254,9 +256,12 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
         //Log.v("Pixel Config", "" + thermalBitmap.getConfig());
         // Example: ARGB_8888
 
-
         //int[] pixels = {};
         //thermalBitmap.getPixels(pixels,50,100,0,0,100,100);
+
+        if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
+            Log.i("ImageType: ","ThermalRadiometricKelvin");
+        }
 
         // TEST
         updateThermalImageView(thermalBitmap);
@@ -275,11 +280,17 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     String fileName = "FLIROne-" + formatedDate + ".jpg";
                     // TEST
                     Log.v("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
+
+
+                    Log.i("Path and File name", path.toString() + fileName.toString());
                     // TEST
+
                     try{
                         lastSavedPath = path+ "/" + fileName;
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
-
+                        //TEST save image type as Kelvin
+                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.ThermalRadiometricKelvinImage);
+                        renderedImage.getFrame().
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
                                 new MediaScannerConnection.OnScanCompletedListener() {
@@ -482,6 +493,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
         //Select ThermalLinearFlux in the App. If it's selected, set some variable so it can be stored
         //and sent later from a function
         // RenderedImage.pixelData() returns byte array
+
         // TEST
     }
 
