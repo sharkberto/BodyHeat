@@ -36,6 +36,8 @@ import com.flir.flironesdk.LoadedFrame;
 import com.flir.flironesdk.RenderedImage;
 import com.flir.flironesdk.SimulatedDevice;
 
+import junit.framework.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -244,15 +246,30 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
     }
 
     private Bitmap thermalBitmap = null;
-    private int pixels[];
-
     // Frame Processor Delegate method, will be called each time a rendered frame is produced
+
+    public class SaveThermalFrame {
+        private RenderedImage.ImageType thermalframe;
+
+        public SaveThermalFrame(){
+        }
+
+        public SaveThermalFrame(RenderedImage.ImageType ThermalRadiometricKelvinImage){
+            this.thermalframe=ThermalRadiometricKelvinImage;
+
+        }
+
+
+    }
+
     public void onFrameProcessed(final RenderedImage renderedImage){
+
         thermalBitmap = renderedImage.getBitmap();
         // TEST
         //Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
         //pixels = thermalBitmap.getPixels(pixels, 0, 32, 0, 0, 32, 32);
-
+        //TEST - Saving frame to an array we can save to file
+        //renderedImage.imageType().values();
         //Log.v("Pixel Config", "" + thermalBitmap.getConfig());
         // Example: ARGB_8888
 
@@ -261,6 +278,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
             Log.i("ImageType: ","ThermalRadiometricKelvin");
+            SaveThermalFrame testsave = new SaveThermalFrame(renderedImage.imageType());
         }
 
         // TEST
@@ -290,7 +308,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
                         //TEST save image type as Kelvin
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.ThermalRadiometricKelvinImage);
-                        renderedImage.getFrame().
+                        renderedImage.getFrame().save();
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
                                 new MediaScannerConnection.OnScanCompletedListener() {
