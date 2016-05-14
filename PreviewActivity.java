@@ -466,8 +466,10 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
     public void onImageTypeListViewClicked(View v){
         int index = ((ListView) v).getSelectedItemPosition();
+        // index above is used to set the image type
         RenderedImage.ImageType imageType = RenderedImage.ImageType.values()[index];
         frameProcessor.setImageTypes(EnumSet.of(imageType));
+        // sets the frame type above
         int paletteVisibility = (imageType.isColorized()) ? View.VISIBLE : View.GONE;
         findViewById(R.id.paletteListView).setVisibility(paletteVisibility);
     }
@@ -475,6 +477,12 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
     public void onPaletteListViewClicked(View v){
         RenderedImage.Palette pal = (RenderedImage.Palette )(((ListView)v).getSelectedItem());
         frameProcessor.setImagePalette(pal);
+        // setImagePalette gets the palette used to color the image
+        // TEST
+        //Select ThermalLinearFlux in the App. If it's selected, set some variable so it can be stored
+        //and sent later from a function
+        // RenderedImage.pixelData() returns byte array
+        // TEST
     }
 
     /**
