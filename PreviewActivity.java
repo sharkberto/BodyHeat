@@ -254,18 +254,24 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
         public SaveThermalFrame(){
         }
 
-        public SaveThermalFrame(RenderedImage ThermalRadiometricKelvinImage){
-            this.thermalframe=ThermalRadiometricKelvinImage;
-            String testfileName = "FLIROne-thermalradiometrickelvintest";
+        public SaveThermalFrame(RenderedImage ThermalImage){
+            this.thermalframe=ThermalImage;
+            String testfileName = "FLIROne-test";
             String testfilePath = "storage/emulated/0/Pictures" + "/" + testfileName;
             File testfile = new File(testfilePath);
             try{
                 // Create file
                 FileWriter fstream = new FileWriter(testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                Bitmap myBitMap = ThermalImage.getBitmap();
+                myBitMap.compress(Bitmap.CompressFormat.JPEG, 100, os);
 
-                for (RenderedImage.ImageType c : RenderedImage.ImageType.values())
-                    System.out.println(c);
+//
+//                for (RenderedImage.ImageType c : RenderedImage.ImageType.values())
+//                    System.out.println(c);
+//                    out.write(Arrays.toString(c))
+//                    Log.v("iterating", "hi"+"");
 
                 //Close the output stream
                 out.close();
