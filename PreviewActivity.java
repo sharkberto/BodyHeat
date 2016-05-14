@@ -36,10 +36,10 @@ import com.flir.flironesdk.LoadedFrame;
 import com.flir.flironesdk.RenderedImage;
 import com.flir.flironesdk.SimulatedDevice;
 
-import junit.framework.Test;
-
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -249,13 +249,30 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
     // Frame Processor Delegate method, will be called each time a rendered frame is produced
 
     public class SaveThermalFrame {
-        private RenderedImage.ImageType thermalframe;
+        private RenderedImage thermalframe;
 
         public SaveThermalFrame(){
         }
 
-        public SaveThermalFrame(RenderedImage.ImageType ThermalRadiometricKelvinImage){
+        public SaveThermalFrame(RenderedImage ThermalRadiometricKelvinImage){
             this.thermalframe=ThermalRadiometricKelvinImage;
+            String testfileName = "FLIROne-thermalradiometrickelvintest";
+            String testfilePath = "storage/emulated/0/Pictures" + "/" + testfileName;
+            File testfile = new File(testfilePath);
+            try{
+                // Create file
+                FileWriter fstream = new FileWriter(testfile.toString());
+                BufferedWriter out = new BufferedWriter(fstream);
+
+                for (RenderedImage.ImageType c : RenderedImage.ImageType.values())
+                    System.out.println(c);
+
+                //Close the output stream
+                out.close();
+            }catch (Exception e){//Catch exception if any
+                System.err.println("Error: " + e.getMessage());
+            }
+
 
         }
 
@@ -278,7 +295,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
             Log.i("ImageType: ","ThermalRadiometricKelvin");
-            SaveThermalFrame testsave = new SaveThermalFrame(renderedImage.imageType());
+            SaveThermalFrame testsave = new SaveThermalFrame(renderedImage);
         }
 
         // TEST
@@ -306,9 +323,6 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     try{
                         lastSavedPath = path+ "/" + fileName;
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
-                        //TEST save image type as Kelvin
-                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.ThermalRadiometricKelvinImage);
-                        renderedImage.getFrame().save();
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
                                 new MediaScannerConnection.OnScanCompletedListener() {
