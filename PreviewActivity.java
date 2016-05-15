@@ -299,10 +299,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         thermalBitmap = renderedImage.getBitmap();
         // TEST
-        //Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
+        Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
         //pixels = thermalBitmap.getPixels(pixels, 0, 32, 0, 0, 32, 32);
         //TEST - Saving frame to an array we can save to file
-        //renderedImage.imageType().values();
         //Log.v("Pixel Config", "" + thermalBitmap.getConfig());
         // Example: ARGB_8888
 
@@ -328,9 +327,8 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     lastSavedPath = path + "/" + fileName;
                     // TEST
                     Log.v("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
-
-
-                    Log.i("Path and File name", path.toString() + fileName.toString());
+                    Log.v("describeContents",":" + thermalBitmap.describeContents());
+                    Log.v("getByteCount",thermalBitmap.getByteCount() + "");
                     // TEST
 
                     try{
