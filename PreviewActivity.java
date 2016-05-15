@@ -256,11 +256,19 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         public SaveThermalFrame(RenderedImage ThermalImage){
             this.thermalframe=ThermalImage;
-            String testfileName = "FLIROne-test";
-            String testfilePath = "storage/emulated/0/Pictures" + "/" + testfileName;
+            //String testfileName = "FLIROne-test";
+            String testfilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+            //copied from image capture func
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssZ", Locale.getDefault());
+            String formatedDate = sdf.format(new Date());
+            String fileName = "FLIROne-" + formatedDate + ".jpg";
+            ///copied from image capture func
+
             File testfile = new File(testfilePath);
             try{
                 // Create file
+                lastSavedPath = testfilePath + "/" + fileName;
+                Log.i("CreateFile",testfile.toString());
                 FileWriter fstream = new FileWriter(testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -299,10 +307,6 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
         //int[] pixels = {};
         //thermalBitmap.getPixels(pixels,50,100,0,0,100,100);
 
-        if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
-            Log.i("ImageType: ","ThermalRadiometricKelvin");
-            SaveThermalFrame testsave = new SaveThermalFrame(renderedImage);
-        }
 
         // TEST
         updateThermalImageView(thermalBitmap);
@@ -319,6 +323,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssZ", Locale.getDefault());
                     String formatedDate = sdf.format(new Date());
                     String fileName = "FLIROne-" + formatedDate + ".jpg";
+                    lastSavedPath = path + "/" + fileName;
                     // TEST
                     Log.v("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
 
