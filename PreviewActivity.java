@@ -273,6 +273,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 Log.v("Output Bitmap to String",testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
+                Log.v("bytearray to str", os.toString());
                 Bitmap myBitMap = ThermalImage.getBitmap();
                 myBitMap.compress(Bitmap.CompressFormat.JPEG, 100, os);
 
@@ -333,6 +334,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     Log.i("Pixel Config", "" + thermalBitmap.getConfig());
                     Log.i("getRowBytes",thermalBitmap.getRowBytes() + "");
                     Log.v("Pixel sample",thermalBitmap.getPixel(30,40)+"");
+                    Log.v("pixeldata to str", renderedImage.pixelData().toString());
                     // TEST
 
                     try{
