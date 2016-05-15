@@ -290,6 +290,10 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         }
 
+        public volleyThermalFrame(RenderedImage ThermalFrame){
+            //send http request here with the image
+        }
+
 
     }
 
@@ -333,7 +337,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
                     try{
                         lastSavedPath = path+ "/" + fileName;
-                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
+                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.VisualJPEGImage);
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
                                 new MediaScannerConnection.OnScanCompletedListener() {
