@@ -268,8 +268,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
             try{
                 // Create file
                 lastSavedPath = testfilePath + "/" + fileName;
-                Log.i("CreateFile",testfile.toString());
+                Log.i("CreateFile", testfile.toString());
                 FileWriter fstream = new FileWriter(testfile.toString());
+                Log.v("Output Bitmap to String",testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 Bitmap myBitMap = ThermalImage.getBitmap();
@@ -294,9 +295,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         //public processPixelArray(RenderedImage renderedImage){}
 
+
+
     }
-
-
 
 
     public void onFrameProcessed(final RenderedImage renderedImage){
@@ -306,7 +307,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
         //pixels = thermalBitmap.getPixels(pixels, 0, 32, 0, 0, 32, 32);
 
         //int[] pixels = {};
-        //thermalBitmap.getPixels(pixels,50,100,0,0,100,100);
+        //thermalBitmap.getPixels(, 50,100,0,0,100,100);
 
 
         // TEST
@@ -331,11 +332,12 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     Log.i("getByteCount",thermalBitmap.getByteCount() + "");
                     Log.i("Pixel Config", "" + thermalBitmap.getConfig());
                     Log.i("getRowBytes",thermalBitmap.getRowBytes() + "");
+                    Log.v("Pixel sample",thermalBitmap.getPixel(30,40)+"");
                     // TEST
 
                     try{
                         lastSavedPath = path+ "/" + fileName;
-                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.VisualJPEGImage);
+                        renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
                                 new MediaScannerConnection.OnScanCompletedListener() {
