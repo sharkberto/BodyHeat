@@ -290,6 +290,10 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         }
 
+        //public savePixelArray(RenderedImage renderedImage){}
+
+        //public processPixelArray(RenderedImage renderedImage){}
+
     }
 
 
@@ -299,11 +303,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         thermalBitmap = renderedImage.getBitmap();
         // TEST
-        Log.v("Byte Count ", "" + thermalBitmap.getByteCount());
         //pixels = thermalBitmap.getPixels(pixels, 0, 32, 0, 0, 32, 32);
-        //TEST - Saving frame to an array we can save to file
-        //Log.v("Pixel Config", "" + thermalBitmap.getConfig());
-        // Example: ARGB_8888
 
         //int[] pixels = {};
         //thermalBitmap.getPixels(pixels,50,100,0,0,100,100);
@@ -326,9 +326,11 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     String fileName = "FLIROne-" + formatedDate + ".jpg";
                     lastSavedPath = path + "/" + fileName;
                     // TEST
-                    Log.v("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
-                    Log.v("describeContents",":" + thermalBitmap.describeContents());
-                    Log.v("getByteCount",thermalBitmap.getByteCount() + "");
+                    Log.i("Bitmap W x H ", thermalBitmap.getWidth() + " " + thermalBitmap.getHeight());
+                    Log.i("describeContents",":" + thermalBitmap.describeContents());
+                    Log.i("getByteCount",thermalBitmap.getByteCount() + "");
+                    Log.i("Pixel Config", "" + thermalBitmap.getConfig());
+                    Log.i("getRowBytes",thermalBitmap.getRowBytes() + "");
                     // TEST
 
                     try{
