@@ -290,12 +290,10 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
 
         }
 
-/*        public volleyThermalFrame(RenderedImage ThermalFrame){
-            //send http request here with the image
-        }*/
-
-
     }
+
+
+
 
     public void onFrameProcessed(final RenderedImage renderedImage){
 
