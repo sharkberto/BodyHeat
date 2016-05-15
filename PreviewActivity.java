@@ -270,10 +270,9 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 lastSavedPath = testfilePath + "/" + fileName;
                 Log.i("CreateFile", testfile.toString());
                 FileWriter fstream = new FileWriter(testfile.toString());
-                Log.v("Output Bitmap to String",testfile.toString());
+                Log.v("Output Bitmap to String", testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
-                Log.v("bytearray to str", os.toString());
                 Bitmap myBitMap = ThermalImage.getBitmap();
                 myBitMap.compress(Bitmap.CompressFormat.JPEG, 100, os);
 
@@ -332,13 +331,15 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                     Log.i("describeContents",":" + thermalBitmap.describeContents());
                     Log.i("getByteCount",thermalBitmap.getByteCount() + "");
                     Log.i("Pixel Config", "" + thermalBitmap.getConfig());
-                    Log.i("getRowBytes",thermalBitmap.getRowBytes() + "");
-                    Log.v("Pixel sample",thermalBitmap.getPixel(30,40)+"");
+                    Log.i("getRowBytes", thermalBitmap.getRowBytes() + "");
+                    Log.v("Pixel sample", thermalBitmap.getPixel(30, 40) + "");
                     Log.v("pixeldata to str", renderedImage.pixelData().toString());
+
                     // TEST
 
                     try{
                         lastSavedPath = path+ "/" + fileName;
+                        SaveThermalFrame save = new SaveThermalFrame(renderedImage);
                         renderedImage.getFrame().save(new File(lastSavedPath), RenderedImage.Palette.Iron, RenderedImage.ImageType.BlendedMSXRGBA8888Image);
                         MediaScannerConnection.scanFile(context,
                                 new String[]{path + "/" + fileName}, null,
