@@ -258,21 +258,22 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
             this.thermalframe=ThermalImage;
             //String testfileName = "FLIROne-test";
             String extStorage = Environment.getExternalStorageState();
-            String testfilePath = extStorage+"/Android/data/com.flir.flironeexampleapplication/";
-            //String testfilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+            String testfilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+            Log.i("DIRECTORY_PICTURES",testfilePath);
             //copied from image capture func
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssZ", Locale.getDefault());
             String formatedDate = sdf.format(new Date());
             String fileName = "FLIROne-" + formatedDate + ".jpg";
             ///copied from image capture func
 
-            File testfile = new File(testfilePath);
+
             try{
                 // Create file
                 lastSavedPath = testfilePath + "/" + fileName;
+                File testfile = new File(lastSavedPath);
                 Log.i("CreateFile", testfile.toString());
                 FileWriter fstream = new FileWriter(testfile.toString());
-                Log.v("Output Bitmap to String", testfile.toString());
+                //Log.v("Output Bitmap to String", testfile.toString());
                 BufferedWriter out = new BufferedWriter(fstream);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 Bitmap myBitMap = ThermalImage.getBitmap();
