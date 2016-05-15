@@ -36,9 +36,9 @@ import com.flir.flironesdk.LoadedFrame;
 import com.flir.flironesdk.RenderedImage;
 import com.flir.flironesdk.SimulatedDevice;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -272,21 +272,22 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 lastSavedPath = testfilePath + "/" + fileName;
                 File testfile = new File(lastSavedPath);
                 Log.i("CreateFile", testfile.toString());
+
                 FileWriter fstream = new FileWriter(testfile.toString());
                 //Log.v("Output Bitmap to String", testfile.toString());
-                BufferedWriter out = new BufferedWriter(fstream);
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
+               //DNU BufferedWriter out = new BufferedWriter(fstream);
+                FileOutputStream fOut = new FileOutputStream(testfile);
                 Bitmap myBitMap = ThermalImage.getBitmap();
-                myBitMap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                myBitMap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 
 //
 //                for (RenderedImage.ImageType c : RenderedImage.ImageType.values())
 //                    System.out.println(c);
 //                    out.write(Arrays.toString(c))
 //                    Log.v("iterating", "hi"+"");
-
+                fOut.flush();
                 //Close the output stream
-                out.close();
+                fOut.close();
             }catch (Exception e){//Catch exception if any
                 System.err.println("Error: " + e.getMessage());
             }
