@@ -106,7 +106,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 public void run() {
                     chargeCableButton.setChecked(chargeCableIsConnected);
                     chargeCableButton.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.connect_sim_button).setEnabled(false);
+                    //findViewById(R.id.connect_sim_button).setEnabled(false);
                 }
             });
         }
@@ -134,7 +134,7 @@ public class PreviewActivity extends Activity implements Device.Delegate, FrameP
                 thermalImageView.clearColorFilter();
                 findViewById(R.id.tuningProgressBar).setVisibility(View.GONE);
                 findViewById(R.id.tuningTextView).setVisibility(View.GONE);
-                findViewById(R.id.connect_sim_button).setEnabled(true);
+                //findViewById(R.id.connect_sim_button).setEnabled(true);
             }
         });
         flirOneDevice = null;
